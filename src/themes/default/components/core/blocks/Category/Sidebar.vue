@@ -58,7 +58,7 @@
           :label="price.label"
         />
       </div>
-      <div v-else>
+      <div v-else-if="filterIndex==='erin_recommends'">
         <generic-selector
           context="category"
           :attribute_code="filter.attribute_code"
@@ -68,6 +68,16 @@
           :key="index"
           :id="option.id"
           :label="option.label"
+        />
+      </div>
+      <div v-else>
+        <new-selector v-for="(option, index) in filter"
+                      context="category"
+                      attribute_code="new"
+                      code="new"
+                      :key="index"
+                      :id="option.id"
+                      :label="option.label"
         />
       </div>
     </div>
@@ -95,13 +105,15 @@ import ColorSelector from 'theme/components/core/ColorSelector'
 import SizeSelector from 'theme/components/core/SizeSelector'
 import PriceSelector from 'theme/components/core/PriceSelector'
 import GenericSelector from 'theme/components/core/GenericSelector'
+import NewSelector from 'theme/components/core/NewSelector'
 
 export default {
   components: {
     ColorSelector,
     SizeSelector,
     PriceSelector,
-    GenericSelector
+    GenericSelector,
+    NewSelector
   },
   mixins: [Sidebar]
 }
