@@ -13,7 +13,8 @@
             :is-active="activeSection.personalDetails"
             :focused-field="focusedField"
           />
-          <shipping class="line relative" :is-active="activeSection.shipping"/>
+          <droppoint-map :shipping-method="shippingMethod" :is-active="activeSection.shipping"/>
+          <!--<shipping class="line relative" :is-active="activeSection.shipping"/>-->
           <payment class="line relative" :is-active="activeSection.payment"/>
           <order-review class="line relative" :is-active="activeSection.orderReview"/>
           <div id="custom-steps"/>
@@ -31,16 +32,16 @@
 import Checkout from '@vue-storefront/core/pages/Checkout'
 
 import PersonalDetails from 'theme/components/core/blocks/Checkout/PersonalDetails'
-import Shipping from 'theme/components/core/blocks/Checkout/Shipping'
 import Payment from 'theme/components/core/blocks/Checkout/Payment'
 import OrderReview from 'theme/components/core/blocks/Checkout/OrderReview'
 import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary'
 import ThankYouPage from 'theme/components/core/blocks/Checkout/ThankYouPage'
+import DroppointMap from '../../../modules/droppoint-shipping/components/DroppointMap'
 
 export default {
   components: {
+    DroppointMap,
     PersonalDetails,
-    Shipping,
     Payment,
     OrderReview,
     CartSummary,
