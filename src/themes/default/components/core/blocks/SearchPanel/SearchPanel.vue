@@ -77,6 +77,9 @@ export default {
         this.$refs.search.focus()
       }
     })
+    if (this.$store.state.searchQuery) {
+      this.search = this.$store.state.searchQuery
+    }
   }
 }
 </script>

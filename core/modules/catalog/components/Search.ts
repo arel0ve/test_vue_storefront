@@ -46,6 +46,7 @@ export const Search = {
         this.products = []
         this.emptyResults = 0
       }
+      this.$store.state.searchQuery = this.search
     },
     seeMore () {
       if (this.search !== '' && this.search !== undefined) {
