@@ -1,30 +1,50 @@
 <template>
   <div class="droppoint-map">
-    <input type="text" v-model="searchZipcode" :placeholder="$t('Zipcode')">
-    <button @click="getDroppoints">{{ $t('Update') }}</button>
+    <base-select
+      class="col-xs-12 col-sm-6 mb25"
+      name="cities"
+      :options="citiesOptions"
+      :selected="city"
+      :placeholder="$t('City *')"
+      :validations="[
+        {
+          condition: $v.shipping.city.$error && !$v.shipping.city.required,
+          text: $t('Field is required')
+        }
+      ]"
+      v-model="city"
+      @input="changeCity"
+    />
 
     {{ error }}
 
-    <span v-show="loading">Loading</span>
+    <span v-show="loading">Loading...</span>
     <gmap-map class="map-container" :center="center" :zoom="12" :options="{streetViewControl:false, fullscreenControl: false}">
       <gmap-marker
         :key="index"
         v-for="(m, index) in droppoints"
         :position="m.position"
-        :animation="selected.id === m.id? 1:0"
+        :animation="selected === m.id ? 1 : 0"
         :clickable="true"
         :icon="m.icon"
         @click="selectDroppoint(m)" />
     </gmap-map>
 
-    <input type="text" v-model="shipping.phoneNumber" :placeholder="$t('Phone Number')"
-           @keyup="$v.shipping.phoneNumber.$touch(); setShipping()"
-    >
+    <base-input
+      class="col-xs-12 mb25"
+      type="text"
+      name="phone-number"
+      :placeholder="$t('Phone Number')"
+      v-model.trim="shipping.phoneNumber"
+      autocomplete="tel"
+      @keyup="$v.shipping.phoneNumber.$touch(); setShipping()"
+    />
+
     <span
       class="validation-error"
       v-if="$v.shipping.phoneNumber.$error && !$v.shipping.phoneNumber.required"
     >
-      {{ $t('Field is required') }}
+      {{ $t('Phone number is required') }}
     </span>
 
     <span :key="index" v-for="(field, index) in extraFields">
@@ -42,10 +62,10 @@
 
     <span :key="index" v-for="(m, index) in droppoints" @click="selectDroppoint(m)" >
       <label class="radioStyled">
-        <p>{{ m.name }}</p>
-        <p>{{ m.streetname }}</p>
+        <p>{{ m.name.toUpperCase() }}</p>
+        <p>{{ m.streetname }}, {{ m.streetname2 }}</p>
         <p>{{ m.zipcode }} {{ m.city }}</p>
-        <input type="radio" v-model="selected" :value="m" >
+        <input type="radio" v-model="selected" :value="m.id" >
         <span class="checkmark"/>
       </label>
     </span>
@@ -55,6 +75,10 @@
 <script>
 import Vue from 'vue'
 import { required, minLength } from 'vuelidate/lib/validators'
+
+import { dps } from './droppoints'
+import BaseSelect from '@vue-storefront/theme-default/components/core/blocks/Form/BaseSelect'
+import BaseInput from '@vue-storefront/theme-default/components/core/blocks/Form/BaseInput'
 
 // GoogleMaps cannot be included while in SSR
 if (process.browser) {
@@ -69,6 +93,7 @@ if (process.browser) {
 
 export default {
   name: 'DroppointMap',
+  components: {BaseInput, BaseSelect},
   data () {
     return {
       center: {lat: 55.488351, lng: 9.479296},
@@ -77,9 +102,20 @@ export default {
       extraFields: {},
       loading: false,
       phoneNumber: null,
-      searchZipcode: null,
+      city: null,
+      cities: [],
       selected: {id: null},
       shipping: this.$store.state.checkout.shippingDetails
+    }
+  },
+  computed: {
+    citiesOptions () {
+      return this.cities.map(item => {
+        return {
+          value: item,
+          label: item
+        }
+      })
     }
   },
   props: {
@@ -99,6 +135,9 @@ export default {
         phoneNumber: {
           required,
           minLength: minLength(8)
+        },
+        city: {
+          required
         }
       }
     }
@@ -113,18 +152,29 @@ export default {
     }
     return val
   },
+  created () {
+    dps.forEach(dp => {
+      if (!this.cities.includes(dp.city)) {
+        this.cities.push(dp.city)
+      }
+    })
+    this.city = this.cities[0]
+    this.setDroppoints(dps.filter(dp => dp.city === this.city))
+  },
   methods: {
+    changeCity (city = this.city) {
+      this.setDroppoints(dps.filter(dp => dp.city === this.city))
+    },
     selectDroppoint (m) {
       let phoneNumber = this.shipping.phoneNumber
-      let extraFields = this.shipping.extraFields
-      this.selected = m
+      this.selected = m.id
 
       let nameArr = m.name.split(' ')
-      let first = nameArr.shift()
-      let last = nameArr.join(' ')
+      let first = nameArr[0]
+      let last = nameArr[1]
 
-      if (last.length === 0) {
-        last = ' - ' + first
+      if (!last || last.length === 0) {
+        last = first
       }
 
       this.shipping = {
@@ -137,21 +187,17 @@ export default {
         droppoint: m,
         country: m.country,
         phoneNumber: phoneNumber,
-        shippingMethod: this.shippingMethod,
-        extraFields: extraFields
+        shippingMethod: this.shippingMethod
       }
-      this.shipping.extraFields.droppoint = JSON.stringify(m)
 
       this.$v.$touch()
       this.setShipping()
     },
     setShipping (invalidate = false) {
-      if (this.$v.$invalid || invalidate) {
-        this.shipping.country = null
-      } else {
-        this.shipping.country = this.selected.country
+      if (!this.$v.$invalid && !invalidate) {
+        this.$bus.$emit('checkout-after-shippingset', this.shipping)
+        this.$bus.$emit('shipping-from-map', this.shipping)
       }
-      this.$bus.$emit('checkout-after-shippingset', this.shipping)
     },
     setDroppoints (droppoints = []) {
       this.droppoints = droppoints
@@ -226,7 +272,7 @@ export default {
 
 <style>
   .map-container {
-    width: 600px;
+    width: 100%;
     height: 400px;
   }
 </style>

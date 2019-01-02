@@ -59,6 +59,20 @@ export const Shipping = {
       this.shipping.shippingMethod = shipping.method_code
       this.shipping.shippingCarrier = shipping.carrier_code
     }
+    this.$bus.$on('shipping-from-map', (shipping) => {
+      this.countries.forEach(country => {
+        if (country.name === shipping.country) {
+          this.shipping.country = country.code
+        }
+      });
+      this.shipping.firstName = shipping.firstName
+      this.shipping.lastName = shipping.lastName
+      this.shipping.country = this.shipping.country ? this.shipping.country : ''
+      this.shipping.city = shipping.city
+      this.shipping.street = [shipping.streetAddress, shipping.apartmentNumber]
+      this.shipping.postcode = shipping.zipCode
+      this.shipping.telephone = shipping.phoneNumber
+    })
   },
   methods: {
     onAfterShippingSet (receivedData) {

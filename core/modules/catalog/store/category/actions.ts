@@ -188,7 +188,6 @@ const actions: ActionTree<CategoryState, RootState> = {
       updateState: true,
       prefetchGroupProducts: prefetchGroupProducts
     }).then((res) => {
-      console.log(res)
       let t1 = new Date().getTime()
       rootStore.state.twoStageCachingDelta1 = t1 - t0
 
@@ -279,7 +278,6 @@ const actions: ActionTree<CategoryState, RootState> = {
             id: '1',
             label: 'New'
           })
-          console.log(rootStore.state.category.filters)
         }
       }
       return subloaders
