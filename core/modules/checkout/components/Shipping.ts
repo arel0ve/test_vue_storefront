@@ -66,13 +66,15 @@ export const Shipping = {
         if (country.name === receivedData.country) {
           this.shipping.country = country.code
         }
-      });
+      })
       this.shipping.firstName = receivedData.firstName
       this.shipping.lastName = receivedData.lastName
       this.shipping.country = this.shipping.country ? this.shipping.country : ''
       this.shipping.city = receivedData.city
-      this.shipping.street = [receivedData.streetAddress, receivedData.apartmentNumber]
-      this.shipping.postcode = receivedData.zipCode
+      this.shipping.streetAddress = receivedData.streetAddress
+      this.shipping.apartmentNumber = receivedData.apartmentNumber
+      this.shipping.zipCode = receivedData.zipCode
+      this.shipping.company = receivedData.company
       this.isFilled = true
     },
     onAfterPersonalDetails (receivedData) {

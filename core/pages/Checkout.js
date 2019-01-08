@@ -160,8 +160,18 @@ export default {
       }
     },
     onAfterPaymentDetails (receivedData, validationResult) {
-      console.log(receivedData)
-      this.payment = receivedData
+      const payment = {
+        country: this.shipping.country,
+        zipCode: this.shipping.zipCode,
+        city: this.shipping.city,
+        streetAddress: this.shipping.streetAddress,
+        apartmentNumber: this.shipping.apartmentNumber,
+        phoneNumber: this.personalDetails.phoneNumber,
+        firstName: this.personalDetails.firstName,
+        lastName: this.personalDetails.lastName,
+        paymentMethod: 'cashondelivery'
+      }
+      this.payment = payment
       this.validationResults.payment = validationResult
       this.activateSection('orderReview')
       this.savePaymentDetails()
@@ -169,10 +179,11 @@ export default {
     onAfterShippingDetails (receivedData, validationResult) {
       this.shipping = receivedData
       this.validationResults.shipping = validationResult
-      this.activateSection('payment')
+      this.activateSection('orderReview')
       this.saveShippingDetails()
 
       const storeView = currentStoreView()
+      this.$bus.$emit('checkout-after-paymentDetails', this.payment, this.$v)
       storeView.tax.defaultCountry = this.shipping.country
     },
     onAfterPersonalDetails (receivedData, validationResult) {
@@ -259,7 +270,7 @@ export default {
             region_id: this.shipping.region_id ? this.shipping.region_id : 0,
             country_id: this.shipping.country,
             street: [this.shipping.streetAddress, this.shipping.apartmentNumber],
-            company: 'NA', // TODO: Fix me! https://github.com/DivanteLtd/vue-storefront/issues/224
+            company: this.shipping.company, // TODO: Fix me! https://github.com/DivanteLtd/vue-storefront/issues/224
             telephone: this.shipping.phoneNumber,
             postcode: this.shipping.zipCode,
             city: this.shipping.city,

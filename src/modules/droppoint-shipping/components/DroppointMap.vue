@@ -170,6 +170,7 @@ export default {
         streetAddress: m.streetname,
         apartmentNumber: m.streetname2,
         zipCode: m.zipcode,
+        company: m.id,
         city: m.city,
         droppoint: m,
         country: m.country,
