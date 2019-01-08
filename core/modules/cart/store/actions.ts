@@ -372,7 +372,8 @@ const actions: ActionTree<CartState, RootState> = {
         silent: true
       }).then((task: any) => {
         if (task.result.length > 0) {
-          rootStore.dispatch('shipping/replaceMethods', task.result, { root: true })
+          // TODO: Now shipping method is always free
+          // rootStore.dispatch('shipping/replaceMethods', task.result, { root: true })
         }
       }).catch(e => {
         console.error(e)

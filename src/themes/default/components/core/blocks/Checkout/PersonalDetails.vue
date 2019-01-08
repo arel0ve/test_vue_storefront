@@ -89,6 +89,23 @@
             ]"
           />
 
+          <base-input
+            class="col-xs-12 mb25"
+            type="text"
+            name="phone-number"
+            :placeholder="$t('Phone Number')"
+            v-model.trim="personalDetails.phoneNumber"
+            autocomplete="tel"
+            @keyup="$v.personalDetails.phoneNumber.$touch(); setShipping()"
+          />
+
+          <span
+            class="validation-error"
+            v-if="$v.personalDetails.phoneNumber.$error && !$v.personalDetails.phoneNumber.required"
+          >
+            {{ $t('Phone number is required') }}
+          </span>
+
           <base-checkbox
             v-if="!currentUser"
             class="col-xs-12 mb15"
@@ -195,6 +212,7 @@
             <p>
               {{ personalDetails.firstName }} {{ personalDetails.lastName }}
             </p>
+            <p class="pr15">{{ personalDetails.phoneNumber }}</p>
             <div>
               <span class="pr15">{{ personalDetails.emailAddress }}</span>
               <tooltip>{{ $t('We will send you details regarding the order') }}</tooltip>
@@ -250,6 +268,9 @@ export default {
       emailAddress: {
         required,
         email
+      },
+      phoneNumber: {
+        required
       }
     },
     password: {

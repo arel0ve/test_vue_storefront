@@ -59,30 +59,27 @@ export const Shipping = {
       this.shipping.shippingMethod = shipping.method_code
       this.shipping.shippingCarrier = shipping.carrier_code
     }
-    this.$bus.$on('shipping-from-map', (shipping) => {
-      this.countries.forEach(country => {
-        if (country.name === shipping.country) {
-          this.shipping.country = country.code
-        }
-      });
-      this.shipping.firstName = shipping.firstName
-      this.shipping.lastName = shipping.lastName
-      this.shipping.country = this.shipping.country ? this.shipping.country : ''
-      this.shipping.city = shipping.city
-      this.shipping.street = [shipping.streetAddress, shipping.apartmentNumber]
-      this.shipping.postcode = shipping.zipCode
-      this.shipping.telephone = shipping.phoneNumber
-    })
   },
   methods: {
     onAfterShippingSet (receivedData) {
-      this.shipping = receivedData
+      this.countries.forEach(country => {
+        if (country.name === receivedData.country) {
+          this.shipping.country = country.code
+        }
+      });
+      this.shipping.firstName = receivedData.firstName
+      this.shipping.lastName = receivedData.lastName
+      this.shipping.country = this.shipping.country ? this.shipping.country : ''
+      this.shipping.city = receivedData.city
+      this.shipping.street = [receivedData.streetAddress, receivedData.apartmentNumber]
+      this.shipping.postcode = receivedData.zipCode
       this.isFilled = true
     },
     onAfterPersonalDetails (receivedData) {
       if (!this.isFilled) {
         this.$store.dispatch('checkout/updatePropValue', ['firstName', receivedData.firstName])
         this.$store.dispatch('checkout/updatePropValue', ['lastName', receivedData.lastName])
+        this.shipping.phoneNumber = receivedData.phoneNumber
       }
     },
     sendDataToCheckout () {

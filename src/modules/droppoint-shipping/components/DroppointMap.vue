@@ -1,5 +1,8 @@
 <template>
   <div class="droppoint-map">
+    <h4 class="col-xs-12">
+      {{ $t('Choose your city') }}
+    </h4>
     <base-select
       class="col-xs-12 col-sm-6 mb25"
       name="cities"
@@ -18,7 +21,9 @@
 
     {{ error }}
 
-    <span v-show="loading">Loading...</span>
+    <h4 class="col-xs-12">
+      {{ $t('Choose shop') }}
+    </h4>
     <gmap-map class="map-container" :center="center" :zoom="12" :options="{streetViewControl:false, fullscreenControl: false}">
       <gmap-marker
         :key="index"
@@ -29,23 +34,6 @@
         :icon="m.icon"
         @click="selectDroppoint(m)" />
     </gmap-map>
-
-    <base-input
-      class="col-xs-12 mb25"
-      type="text"
-      name="phone-number"
-      :placeholder="$t('Phone Number')"
-      v-model.trim="shipping.phoneNumber"
-      autocomplete="tel"
-      @keyup="$v.shipping.phoneNumber.$touch(); setShipping()"
-    />
-
-    <span
-      class="validation-error"
-      v-if="$v.shipping.phoneNumber.$error && !$v.shipping.phoneNumber.required"
-    >
-      {{ $t('Phone number is required') }}
-    </span>
 
     <span :key="index" v-for="(field, index) in extraFields">
       {{ field.title }}
@@ -101,7 +89,6 @@ export default {
       error: '',
       extraFields: {},
       loading: false,
-      phoneNumber: null,
       city: null,
       cities: [],
       selected: {id: null},
@@ -196,7 +183,6 @@ export default {
     setShipping (invalidate = false) {
       if (!this.$v.$invalid && !invalidate) {
         this.$bus.$emit('checkout-after-shippingset', this.shipping)
-        this.$bus.$emit('shipping-from-map', this.shipping)
       }
     },
     setDroppoints (droppoints = []) {

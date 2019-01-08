@@ -17,7 +17,7 @@ describe('[cart] cartTotals.ts', () => {
           state: {
             platformTotalSegments: [
               {'code': 'subtotal', 'title': 'Subtotal', 'value': 39.36},
-              {'code': 'shipping', 'title': 'Shipping & Handling (Flat Rate - Fixed)', 'value': 5},
+              {'code': 'shipping', 'title': 'Shipping & Handling (Free)', 'value': 0},
               {'code': 'discount', 'title': 'Discount', 'value': -4.8},
               {'code': 'tax', 'title': 'Tax', 'value': 6.26, 'area': 'taxes',
                 'extension_attributes': {

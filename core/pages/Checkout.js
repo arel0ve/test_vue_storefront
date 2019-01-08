@@ -160,6 +160,7 @@ export default {
       }
     },
     onAfterPaymentDetails (receivedData, validationResult) {
+      console.log(receivedData)
       this.payment = receivedData
       this.validationResults.payment = validationResult
       this.activateSection('orderReview')

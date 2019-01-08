@@ -34,7 +34,8 @@ export const PersonalDetails = {
       this.personalDetails = {
         firstName: receivedData.firstname,
         lastName: receivedData.lastname,
-        emailAddress: receivedData.email
+        emailAddress: receivedData.email,
+        phoneNumber: receivedData.phoneNumber
       }
     },
     sendDataToCheckout () {

@@ -26,6 +26,7 @@ export const shippingModule: Module<ShippingState, RootState> = {
   },
   getters: {
     shippingMethods (state) {
+      state.methods = buildTimeConfig.shipping.methods // TODO: For always only standard method
       return state.methods
     }
   }

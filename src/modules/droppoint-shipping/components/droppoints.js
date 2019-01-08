@@ -1,11 +1,11 @@
 export const dps = [
   {
-    'id': 0,
     'position': {
       'lat': 47.847717,
       'lng': 35.120403
     },
     'name': 'Valeri Programmer',
+    'id': '51cd3ca2-8b66-11e8-80c4-eec2ef9f58ac',
     'country': 'Ukraine',
     'city': 'Zaporizhzhia',
     'zipcode': '69000',
@@ -13,12 +13,12 @@ export const dps = [
     'streetname2': '98'
   },
   {
-    'id': 1,
     'position': {
       'lat': 47.854182,
       'lng': 35.114047
     },
     'name': 'Name Lastname',
+    'id': '51cd3ca2-8b66-11e8-80c4-eec2ef9f58ad',
     'country': 'Ukraine',
     'city': 'Zaporizhzhia',
     'zipcode': '69000',
@@ -26,12 +26,12 @@ export const dps = [
     'streetname2': '126'
   },
   {
-    'id': 2,
     'position': {
       'lat': 50.448150,
       'lng': 30.518944
     },
     'name': 'Kievskii',
+    'id': '51cd3ca2-8b66-11e8-80c4-eec2ef9f58ae',
     'country': 'Ukraine',
     'city': 'Kyiv',
     'zipcode': '02000',

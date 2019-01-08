@@ -33,15 +33,15 @@
       <div class="hidden-xs col-sm-2 col-md-1"/>
       <div class="col-xs-11 col-sm-9 col-md-10">
         <div class="row">
-          <base-checkbox
-            v-if="currentUser && hasShippingDetails()"
-            class="col-xs-12 mb25"
-            id="shipToMyAddressCheckbox"
-            @click="useMyAddress"
-            v-model="shipToMyAddress"
-          >
-            {{ $t('Ship to my default address') }}
-          </base-checkbox>
+          <!--<base-checkbox-->
+          <!--v-if="currentUser && hasShippingDetails()"-->
+          <!--class="col-xs-12 mb25"-->
+          <!--id="shipToMyAddressCheckbox"-->
+          <!--@click="useMyAddress"-->
+          <!--v-model="shipToMyAddress"-->
+          <!--&gt;-->
+          <!--{{ $t('Ship to my default address') }}-->
+          <!--</base-checkbox>-->
 
           <!--<base-input-->
           <!--class="col-xs-12 col-sm-6 mb25"-->
@@ -175,24 +175,24 @@
           <!--autocomplete="tel"-->
           <!--/>-->
 
-          <h4 class="col-xs-12">
-            {{ $t('Shipping method') }}
-          </h4>
-          <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
-            <label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}
-              <input
-                type="radio"
-                :value="method.method_code"
-                name="shipping-method"
-                v-model="shipping.shippingMethod"
-                @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
-              >
-              <span class="checkmark"/>
-            </label>
-          </div>
-          <span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
-            {{ $t('Field is required') }}
-          </span>
+          <!--<h4 class="col-xs-12">-->
+          <!--{{ $t('Shipping method') }}-->
+          <!--</h4>-->
+          <!--<div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">-->
+          <!--<label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}-->
+          <!--<input-->
+          <!--type="radio"-->
+          <!--:value="method.method_code"-->
+          <!--name="shipping-method"-->
+          <!--v-model="shipping.shippingMethod"-->
+          <!--@change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"-->
+          <!--&gt;-->
+          <!--<span class="checkmark"/>-->
+          <!--</label>-->
+          <!--</div>-->
+          <!--<span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">-->
+          <!--{{ $t('Field is required') }}-->
+          <!--</span>-->
           <droppoint-map style="width: 100%" :shipping-method="shipping.shippingMethod"/>
         </div>
       </div>
@@ -207,7 +207,7 @@
               @click.native="sendDataToCheckout"
               :disabled="$v.shipping.$invalid"
             >
-              {{ $t('Continue to payment') }}
+              {{ $t('Go review the order') }}
             </button-full>
           </div>
         </div>
@@ -235,17 +235,17 @@
               <span class="pr15">{{ shipping.phoneNumber }}</span>
               <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
             </div>
-            <div class="col-xs-12">
-              <h4>
-                {{ $t('Shipping method') }}
-              </h4>
-            </div>
-            <div class="col-md-6 mb15">
-              <label class="radioStyled"> {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
-                <input type="radio" value="" checked disabled name="chosen-shipping-method">
-                <span class="checkmark"/>
-              </label>
-            </div>
+            <!--<div class="col-xs-12">-->
+            <!--<h4>-->
+            <!--{{ $t('Shipping method') }}-->
+            <!--</h4>-->
+            <!--</div>-->
+            <!--<div class="col-md-6 mb15">-->
+            <!--<label class="radioStyled"> {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}-->
+            <!--<input type="radio" value="" checked disabled name="chosen-shipping-method">-->
+            <!--<span class="checkmark"/>-->
+            <!--</label>-->
+            <!--</div>-->
           </div>
         </div>
       </div>
