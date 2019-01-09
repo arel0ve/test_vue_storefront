@@ -40,11 +40,12 @@ export default {
   },
   mixins: [SearchIcon],
   created () {
-    if (!!window.navigator.platform && !navigator.userAgent.match(/iPhone|iPad|iPod|Android|Mobile/i)) {
-      this.isDesktop = true
+    // if (!!window.navigator.platform && !navigator.userAgent.match(/iPhone|iPad|iPod|Android|Mobile/i)) {
+    //   this.isDesktop = true
+    // }
+    if (this.$store.state.searchQuery) {
+      this.searchQuery = this.$store.state.searchQuery
     }
-    if (this.$store.state.searchQuery) {}
-    this.searchQuery = this.$store.state.searchQuery
   },
   methods: {
     inputSearch () {
