@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="search-input-group" v-if="isDesktop">
-      <label for="search-input">
+      <label for="searchInput" @click="focusSearch">
         <i class="material-icons search-icon">search</i>
       </label>
       <input
         ref="searchInput"
-        id="search-input"
+        id="searchInput"
         v-model="searchQuery"
         class="search-input"
         :placeholder="$t('Type what you are looking for...')"
@@ -43,13 +43,17 @@ export default {
     if (!!window.navigator.platform && !navigator.userAgent.match(/iPhone|iPad|iPod|Android|Mobile/i)) {
       this.isDesktop = true
     }
-    if (this.$store.state.searchQuery) {}
-    this.searchQuery = this.$store.state.searchQuery
+    if (this.$store.state.searchQuery) {
+      this.searchQuery = this.$store.state.searchQuery
+    }
   },
   methods: {
     inputSearch () {
       this.$store.state.searchQuery = this.searchQuery
       this.showSearchpanel()
+    },
+    focusSearch () {
+      this.$refs.searchInput.focus()
     }
   }
 }
