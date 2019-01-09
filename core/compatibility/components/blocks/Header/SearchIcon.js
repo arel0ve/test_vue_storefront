@@ -1,5 +1,4 @@
 import { mapState } from 'vuex'
-import { Search } from '@vue-storefront/core/modules/catalog/components/Search'
 
 export default {
   name: 'SearchIcon',

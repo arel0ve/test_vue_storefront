@@ -29,7 +29,7 @@
                     }
                 }
            ]
-        }, 
+        },
         "addressInformation": {
 
             "properties": {
@@ -47,9 +47,9 @@
                         "company": { "type": "string" },
                         "telephone": { "type": "string" },
                         "postcode": { "type": "string", "minLength": 3,  "pattern": "[a-zA-Z0-9_]+" },
-                        "city": { "type": "string", "pattern": "[a-zA-Z]+" },
-                        "firstname": { "type": "string", "pattern": "[a-zA-Z]+", "description": "First name" },
-                        "lastname": { "type": "string", "pattern": "[a-zA-Z]+" },
+                        "city": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+" },
+                        "firstname": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+", "description": "First name" },
+                        "lastname": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+" },
                         "email": { "type": "string", "pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" },
                         "region_code":{ "type": "string" },
                         "sameAsBilling": { "type": "number"}
@@ -69,9 +69,9 @@
                             "company": { "type": "string" },
                             "telephone": { "type": "string" },
                             "postcode": { "type": "string", "minLength": 3,  "pattern": "[a-zA-Z0-9_]+" },
-                            "city": { "type": "string", "pattern": "[a-zA-Z]+" },
-                            "firstname": { "type": "string", "pattern": "[a-zA-Z]+" },
-                            "lastname": { "type": "string", "pattern": "[a-zA-Z]+" },
+                            "city": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+" },
+                            "firstname": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+" },
+                            "lastname": { "type": "string", "pattern": "[a-zA-Zа-яА-Я]+" },
                             "email": { "type": "string", "pattern": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" },
                             "region_code":{ "type": "string" },
                             "sameAsBilling": { "type": "number"}

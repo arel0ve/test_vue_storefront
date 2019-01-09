@@ -26,8 +26,8 @@
     </h4>
     <gmap-map class="map-container" :center="center" :zoom="12" :options="{streetViewControl:false, fullscreenControl: false}">
       <gmap-marker
-        :key="index"
         v-for="(m, index) in droppoints"
+        :key="index"
         :position="m.position"
         :animation="selected === m.id ? 1 : 0"
         :clickable="true"
@@ -195,17 +195,19 @@ export default {
       if (this.searchZipcode) {
         this.loading = true
         this.error = null
-        let endpoint = this.$config.droppointShipping[this.shippingMethod].endpoint
+        if (this.$config.droppointShipping) {
+          let endpoint = this.$config.droppointShipping[this.shippingMethod].endpoint
 
-        this.$store.dispatch('droppoint-shipping/fetch', {
-          url: endpoint + '/zipcode/' + encodeURIComponent(this.searchZipcode),
-          payload: {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            mode: 'cors'
-          },
-          callback_event: 'droppoint-map-update'
-        }, {root: true})
+          this.$store.dispatch('droppoint-shipping/fetch', {
+            url: endpoint + '/zipcode/' + encodeURIComponent(this.searchZipcode),
+            payload: {
+              method: 'GET',
+              headers: {'Content-Type': 'application/json'},
+              mode: 'cors'
+            },
+            callback_event: 'droppoint-map-update'
+          }, {root: true})
+        }
       }
     }
   },
