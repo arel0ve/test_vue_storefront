@@ -14,7 +14,7 @@
             :focused-field="focusedField"
           />
           <shipping class="line relative" :is-active="activeSection.shipping"/>
-          <payment class="line relative" :is-active="activeSection.payment"/>
+          <payment class="line relative" :is-active="activeSection.payment" hidden/>
           <order-review class="line relative" :is-active="activeSection.orderReview"/>
           <div id="custom-steps"/>
         </div>

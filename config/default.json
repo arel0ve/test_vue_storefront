@@ -262,8 +262,8 @@
       "methods": [
         {
           "method_title": "Free Shipping",
-          "method_code": "free",
-          "carrier_code": "free",
+          "method_code": "flatrate",
+          "carrier_code": "flatrate",
           "amount": 0,
           "price_incl_tax": 0,
           "default": true,
