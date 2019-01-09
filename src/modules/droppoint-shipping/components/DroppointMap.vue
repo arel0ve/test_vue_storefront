@@ -26,8 +26,8 @@
     </h4>
     <gmap-map class="map-container" :center="center" :zoom="12" :options="{streetViewControl:false, fullscreenControl: false}">
       <gmap-marker
-        :key="index"
         v-for="(m, index) in droppoints"
+        :key="index"
         :position="m.position"
         :animation="selected === m.id ? 1 : 0"
         :clickable="true"
