@@ -23,6 +23,7 @@ export const Search = {
     },
     closeSearchpanel () {
       this.$store.state.searchQuery = ''
+      this.$bus.$emit('clean-search')
       this.$store.commit('ui/setSidebar', false)
       this.$store.commit('ui/setMicrocart', false)
       this.$store.commit('ui/setSearchpanel', false)

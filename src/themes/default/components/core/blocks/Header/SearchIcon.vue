@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="search-input-group" v-if="isDesktop">
-      <label for="searchInput" @click="focusSearch">
+    <div class="search-input-group" v-if="isDesktop" @click="inputSearch">
+      <label for="search-input">
         <i class="material-icons search-icon">search</i>
       </label>
       <input
         ref="searchInput"
-        id="searchInput"
-        v-model="searchQuery"
+        id="search-input"
+        :v-model="searchQuery"
         class="search-input"
         :placeholder="$t('Type what you are looking for...')"
         type="text"
-        @input="inputSearch"
+        @keydown.prevent="inputSearch"
       >
     </div>
     <div v-else>
@@ -46,14 +46,14 @@ export default {
     if (this.$store.state.searchQuery) {
       this.searchQuery = this.$store.state.searchQuery
     }
+    this.$bus.$on('clean-search', () => {
+      this.searchQuery = ''
+    })
   },
   methods: {
     inputSearch () {
       this.$store.state.searchQuery = this.searchQuery
       this.showSearchpanel()
-    },
-    focusSearch () {
-      this.$refs.searchInput.focus()
     }
   }
 }
